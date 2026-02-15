@@ -1,9 +1,8 @@
-const article = document.querySelector("article");
+const bookshelf = document.querySelector(".bookshelf");
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readInput = document.getElementById("read");
-
 const addBookBtn = document.getElementById("add-book-button")
 
 const library = [
@@ -41,20 +40,37 @@ const addBookToLibrary = function(title, author, pages, read) {
 
 const updateLibrary = () => {
     library.forEach(book => {
-        let container = document.createElement("div");
-        let para = document.createElement("p");
-        para.textContent = `${book.id}: ${book.title} by ${book.author}, has ${book.pages} pages. ${book.read}`;
-        container.appendChild(para);
-        article.appendChild(container);
+        const container = document.createElement("div");
+        const bookTitle = document.createElement("p");
+        const bookAuthor = document.createElement("p");
+        const bookPages = document.createElement("p");
+        const bookRead = document.createElement("div");
+        const removeBook = document.createElement("button");
+
+        container.id = book.id;
+        container.classList.add("book");
+
+        bookTitle.classList.add("book-title");
+        bookTitle.textContent = `${book.title}`;
+        bookAuthor.classList.add("book-author");
+        bookAuthor.textContent = `${book.author}`;
+        bookPages.classList.add("book-pages");
+        bookPages.textContent = `${book.pages}`;
+        removeBook.classList.add("remove-book");
+        removeBook.textContent = `Remove`;
+
+        container.appendChild(bookTitle);
+        container.appendChild(bookAuthor);
+        container.appendChild(bookPages);
+        container.appendChild(bookRead);
+        container.appendChild(removeBook);
+
+        bookshelf.appendChild(container);
         // TODO: Add Remove button
     })
 }
 
 // TODO: ability to toggle Read status of a book. Add this to the Book prototype after constructor
-
-// TODO: Add Remove Book function
-
-
 
 updateLibrary();
 
@@ -71,6 +87,19 @@ addBookBtn.addEventListener("click", ()=>{
 
     addBookToLibrary(newTitle, newAuthor, newPages, read);
     // TODO: append new book rather than reset.
-    article.innerHTML = "";
+    bookshelf.innerHTML = "";
     updateLibrary();
+})
+
+bookshelf.addEventListener("click", (e) => {
+    if(e.target.className === "remove-book") {
+        e.target.parentElement.remove();
+        // TODO Also need to remove from array
+    }
+
+    if (e.target.className === "read") {
+        e.target.classList.remove("read");
+        e.target.classList.add("not-read");
+        // TODO Also need to update array
+    }
 })
