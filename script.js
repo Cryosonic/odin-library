@@ -41,8 +41,11 @@ const addBookToLibrary = function(title, author, pages, read) {
 const updateLibrary = () => {
     library.forEach(book => {
         const container = document.createElement("div");
+        const title = document.createElement("p");
         const newTitle = document.createElement("p");
+        const author = document.createElement("p");
         const newAuthor = document.createElement("p");
+        const pages = document.createElement("p");
         const newPages = document.createElement("p");
         const bookRead = document.createElement("div");
         const removeBook = document.createElement("button");
@@ -50,10 +53,21 @@ const updateLibrary = () => {
         container.id = book.id;
         container.classList.add("book");
 
+        title.classList.add("book-data");
+        title.textContent = "Title:";
+        container.appendChild(title);
         newTitle.textContent = `${book.title}`;
         container.appendChild(newTitle);
+
+        author.classList.add("book-data");
+        author.textContent = "Author:";
+        container.appendChild(author);
         newAuthor.textContent = `${book.author}`;
         container.appendChild(newAuthor);
+
+        pages.classList.add("book-data");
+        pages.textContent = "Pages:";
+        container.appendChild(pages);
         newPages.textContent = `${book.pages}`;
         container.appendChild(newPages);
 
@@ -64,7 +78,6 @@ const updateLibrary = () => {
         container.appendChild(removeBook);
 
         bookshelf.appendChild(container);
-        // TODO: Add Remove button
     })
 }
 
@@ -95,8 +108,18 @@ addBookBtn.addEventListener("click", ()=>{
 
 bookshelf.addEventListener("click", (e) => {
     if(e.target.className === "remove-book") {
+        const parentID = e.target.parentElement.id;
+
+        // remove entry from library array
+        let index = 0;
+        for (let i = 0; i < library.length; i++) {
+            if (library[i].id === parentID) {
+                index = i;
+            }
+        }
+        library.splice(index, 1);
+
         e.target.parentElement.remove();
-        // TODO Also need to remove from array
     }
 
     if (e.target.className === "read") {
