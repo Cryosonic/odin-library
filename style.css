@@ -1,6 +1,6 @@
 main {
     margin: auto;
-    max-width: 900px;
+    max-width: 1220px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -8,22 +8,42 @@ main {
     
     h1 {
         text-align: center;
+        text-decoration: underline;
     }
 
     form {
+        padding: 20px;
+        column-gap: 20px;
+        row-gap: 10px;
         display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 3fr;
 
+        input {
+            grid-row: 2;
+        }
+
+        #add-book-button {
+            margin-top: 50px;
+            grid-column: 2 / 4;
+            grid-row: 3;
+        }
     }
 
     .bookshelf {
         padding: 20px;
         display: grid;
-        grid-template-columns: repeat(auto-fill, 200px);
-        grid-auto-rows: 280px;
+        grid-template-columns: repeat(auto-fill, 280px);
+        grid-auto-rows: 350px;
         gap: 20px;
 
         .book {
             background-color: red;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 60px 190px;
+            column-gap: 10px;
+            align-content: start;
         }
     }
 }

@@ -75,6 +75,8 @@ const updateLibrary = () => {
 updateLibrary();
 
 addBookBtn.addEventListener("click", ()=>{
+    // TODO: split function and add event filter to none-default.
+
     let newTitle = titleInput.value;
     let newAuthor = authorInput.value;
     let newPages = pagesInput.value;
@@ -85,10 +87,12 @@ addBookBtn.addEventListener("click", ()=>{
     pagesInput.value = ""
     readInput.checked = false;
 
-    addBookToLibrary(newTitle, newAuthor, newPages, read);
-    // TODO: append new book rather than reset.
-    bookshelf.innerHTML = "";
-    updateLibrary();
+    if (newTitle !== "" && newAuthor !== "" && newPages !== "") {
+        addBookToLibrary(newTitle, newAuthor, newPages, read);
+        // TODO: append new book rather than reset.
+        bookshelf.innerHTML = "";
+        updateLibrary();
+    }
 })
 
 bookshelf.addEventListener("click", (e) => {
