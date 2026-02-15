@@ -41,27 +41,25 @@ const addBookToLibrary = function(title, author, pages, read) {
 const updateLibrary = () => {
     library.forEach(book => {
         const container = document.createElement("div");
-        const bookTitle = document.createElement("p");
-        const bookAuthor = document.createElement("p");
-        const bookPages = document.createElement("p");
+        const newTitle = document.createElement("p");
+        const newAuthor = document.createElement("p");
+        const newPages = document.createElement("p");
         const bookRead = document.createElement("div");
         const removeBook = document.createElement("button");
 
         container.id = book.id;
         container.classList.add("book");
 
-        bookTitle.classList.add("book-title");
-        bookTitle.textContent = `${book.title}`;
-        bookAuthor.classList.add("book-author");
-        bookAuthor.textContent = `${book.author}`;
-        bookPages.classList.add("book-pages");
-        bookPages.textContent = `${book.pages}`;
+        newTitle.textContent = `${book.title}`;
+        container.appendChild(newTitle);
+        newAuthor.textContent = `${book.author}`;
+        container.appendChild(newAuthor);
+        newPages.textContent = `${book.pages}`;
+        container.appendChild(newPages);
+
         removeBook.classList.add("remove-book");
         removeBook.textContent = `Remove`;
 
-        container.appendChild(bookTitle);
-        container.appendChild(bookAuthor);
-        container.appendChild(bookPages);
         container.appendChild(bookRead);
         container.appendChild(removeBook);
 
