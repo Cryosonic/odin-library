@@ -1,9 +1,10 @@
 const bookshelf = document.querySelector(".bookshelf");
+const booksList = bookshelf.children;
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readInput = document.getElementById("read");
-const addBookBtn = document.getElementById("add-book-button")
+const addBookBtn = document.getElementById("add-book-button");
 
 const library = [
     {
@@ -11,13 +12,13 @@ const library = [
         title: "Harry Potter",
         author: "J.K. Rowling",
         pages: "500",
-        read: "I have read this book"
+        read: true,
     },{
         id: crypto.randomUUID(),
         title: "Lord of the Rings",
         author: "J.R.R. Tolken",
         pages: "500",
-        read: "I have not read this book yet"
+        read: false,
     }
 ];
 
@@ -38,8 +39,8 @@ const addBookToLibrary = function(title, author, pages, read) {
     library.push(nextBook);
 }
 
-const updateLibrary = () => {
-    library.forEach(book => {
+const updateBookshelf = () => {
+    library.forEach((book) => {
         const container = document.createElement("div");
         const title = document.createElement("p");
         const newTitle = document.createElement("p");
@@ -71,6 +72,11 @@ const updateLibrary = () => {
         newPages.textContent = `${book.pages}`;
         container.appendChild(newPages);
 
+        bookRead.classList.add("read");
+        bookRead.classList.add(book.read);
+        bookRead.textContent = book.read ? "Read" : "Not read";
+        container.appendChild(bookRead);
+
         removeBook.classList.add("remove-book");
         removeBook.textContent = `Remove`;
 
@@ -81,9 +87,7 @@ const updateLibrary = () => {
     })
 }
 
-// TODO: ability to toggle Read status of a book. Add this to the Book prototype after constructor
-
-updateLibrary();
+updateBookshelf();
 
 addBookBtn.addEventListener("click", ()=>{
     // TODO: split function and add event filter to none-default.
@@ -91,7 +95,7 @@ addBookBtn.addEventListener("click", ()=>{
     let newTitle = titleInput.value;
     let newAuthor = authorInput.value;
     let newPages = pagesInput.value;
-    let read = readInput.checked ? "I have read this book" : "I have not read this book yet";
+    let read = readInput.checked ? true : false;
 
     titleInput.value = "";
     authorInput.value = "";
@@ -102,29 +106,34 @@ addBookBtn.addEventListener("click", ()=>{
         addBookToLibrary(newTitle, newAuthor, newPages, read);
         // TODO: append new book rather than reset.
         bookshelf.innerHTML = "";
-        updateLibrary();
+        updateBookshelf();
     }
 })
 
 bookshelf.addEventListener("click", (e) => {
-    if(e.target.className === "remove-book") {
-        const parentID = e.target.parentElement.id;
-
-        // remove entry from library array
-        let index = 0;
-        for (let i = 0; i < library.length; i++) {
-            if (library[i].id === parentID) {
-                index = i;
-            }
+    const parentID = e.target.parentElement.id;
+    let index = 0;
+    for (let i = 0; i < library.length; i++) {
+        if (library[i].id === parentID) {
+            index = i;
         }
-        library.splice(index, 1);
-
-        e.target.parentElement.remove();
     }
 
-    if (e.target.className === "read") {
-        e.target.classList.remove("read");
-        e.target.classList.add("not-read");
-        // TODO Also need to update array
+    if(e.target.className === "remove-book") {
+        library.splice(index, 1);
+        e.target.parentElement.remove();
+    } else if (e.target.className.includes("read")) {
+        // TODO: Move to prototype
+        if (e.target.className.includes("true")) {
+            library[index].read = false;
+            e.target.classList.remove("true");
+            e.target.classList.add("false");
+            e.target.textContent = "Not read";
+        } else if (e.target.className.includes("false")) {
+            library[index].read = true;
+            e.target.classList.remove("false");
+            e.target.classList.add("true");
+            e.target.textContent = "Read";
+        }
     }
 })

@@ -1,6 +1,10 @@
 :root {
     --clr-input-grey: rgb(220, 220, 220);
-    --clr-input-bg-grey: rgb(100, 100, 100);
+    --clr-input-bg-grey: rgb(180, 180, 180);
+    --clr-book-read-border: rgb(0, 100, 0);
+    --clr-book-read-bg: rgb(50, 150, 50);
+    --clr-book-notread-border: rgb(200, 120, 0);
+    --clr-book-notread-bg: orange;
 }
 
 *,
@@ -64,21 +68,45 @@ main {
         gap: 20px;
 
         .book {
-            background-color: red;
-            padding: 10px;
+            background-color: skyblue;
+            padding: 30px;
+            font-size: 1.5rem;
             display: grid;
-            grid-template-columns: 60px 190px;
             gap: 10px;
-            align-content: start;
+            align-content: space-between;
+            background-image: url("./images/book-frame.png");
+
+            P {
+                overflow: hidden;
+            }
 
             .book-data {
                 font-weight: 600;
             }
 
+            .read {
+                text-align: center;
+                border-radius: 20px;
+            }
+
+            .true {
+                border: 3px solid var(--clr-book-read-border);
+                background-color: var(--clr-book-read-bg);
+                color: white;
+            }
+
+            .false {
+                border: 3px solid var(--clr-book-notread-border);
+                background-color: var(--clr-book-notread-bg);
+            }
+
             .remove-book {
-                grid-column: span 2;
-                justify-self: center;
-                width: 60%;
+                color: white;
+                font-family: inherit;
+                font-size: inherit;
+                background-color: rgb(200, 50, 50);
+                border: 3px solid rgb(150, 0, 0);
+                border-radius: 20px;
             }
         }
     }
