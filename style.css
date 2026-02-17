@@ -68,13 +68,17 @@ main {
         gap: 20px;
 
         .book {
-            background-color: skyblue;
+            --book-cover: white;
+            position: relative;
             padding: 30px;
             font-size: 1.5rem;
             display: grid;
             gap: 10px;
             align-content: space-between;
-            background-image: url("./images/book-frame.png");
+
+            * {
+                z-index: 1;
+            }
 
             P {
                 overflow: hidden;
@@ -108,6 +112,26 @@ main {
                 border: 3px solid rgb(150, 0, 0);
                 border-radius: 20px;
             }
+        }
+
+        .book::before {
+            position: absolute;
+            content: "";
+            width: 260px;
+            height: 330px;
+            top: 10px;
+            left:10px;
+            background-color: var(--book-cover);
+        }
+
+        .book::after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: url("./images/book-frame-t.png");
         }
     }
 }
