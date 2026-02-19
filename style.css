@@ -71,7 +71,7 @@ main {
             --book-cover: white;
             position: relative;
             padding: 30px;
-            font-size: 1.5rem;
+            font-size: 20px;
             display: grid;
             grid-template-columns: 1fr 3fr;
             grid-template-rows: 2fr repeat(4, 1fr);
@@ -106,7 +106,7 @@ main {
                 overflow: hidden;
             }
 
-            .book-data {
+            .book-header {
                 font-weight: 600;
             }
 
