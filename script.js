@@ -13,16 +13,18 @@ const library = [
         author: "J.K. Rowling",
         pages: "500",
         read: true,
+        coverColor: "white",
     },{
         id: crypto.randomUUID(),
         title: "Lord of the Rings",
         author: "J.R.R. Tolken",
         pages: "500",
         read: false,
+        coverColor: "white",
     }
 ];
 
-function Book(id, title, author, pages, read) {
+function Book(id, title, author, pages, read, coverColor) {
     if (!new.target) {
         throw Error("new word must be used");
     }
@@ -31,14 +33,8 @@ function Book(id, title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.cover = coverColor
 };
-
-const addBookToLibrary = function(title, author, pages, read, color) {
-    const newBookID = crypto.randomUUID()
-    let newBook = new Book(newBookID, title, author, pages, read);
-    library.push(newBook);
-    addBook(title, author, pages, read, color);
-}
 
 const addBook = (bookTitle, bookAuthor, bookPages, bookRead, bookCoverColor) => {
     const container = document.createElement("div");
@@ -53,7 +49,6 @@ const addBook = (bookTitle, bookAuthor, bookPages, bookRead, bookCoverColor) => 
 
     container.id = crypto.randomUUID();
     container.classList.add("book");
-    container.style.setProperty("--book-cover", bookCoverColor);
 
     pTitleHeader.classList.add("book-header");
     pTitleHeader.textContent = "Title:";
@@ -78,11 +73,28 @@ const addBook = (bookTitle, bookAuthor, bookPages, bookRead, bookCoverColor) => 
     divBookRead.textContent = bookRead ? "Read" : "Not read";
     container.appendChild(divBookRead);
 
+    container.style.setProperty("--book-cover", bookCoverColor);
+    
     removeBookBtn.classList.add("remove-book");
     removeBookBtn.textContent = `Remove`;
     container.appendChild(removeBookBtn);
 
     bookshelf.appendChild(container);
+}
+
+const initiatePage = () => {
+    library.forEach(book=>{
+        addBook(book.title, book.author, book.pages, book.read, book.coverColor);
+    })
+}
+
+initiatePage();
+
+const addBookToLibrary = function(title, author, pages, read, color) {
+    const newBookID = crypto.randomUUID()
+    let newBook = new Book(newBookID, title, author, pages, read);
+    library.push(newBook);
+    addBook(title, author, pages, read, color);
 }
 
 addBookBtn.addEventListener("click", (e)=>{
