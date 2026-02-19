@@ -1,9 +1,9 @@
 const bookshelf = document.querySelector(".bookshelf");
-const booksList = bookshelf.children;
 const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readInput = document.getElementById("read");
+// const colorSelector = 
 const addBookBtn = document.getElementById("add-book-button");
 
 const library = [
@@ -97,6 +97,21 @@ const addBookToLibrary = function(title, author, pages, read, color) {
     addBook(title, author, pages, read, color);
 }
 
+const checkCorrectInputs = (title, author, pages) => {
+    const fractionalPages = pages - Math.round(pages)
+
+    if (title.length < 1 || title.length > 40) {
+        return false;
+    } else if ( author.length < 1 || author.length > 40) {
+        return false;
+    } else if (isNaN(pages) || Number(pages) < 1 || Number(pages) > 1000 || fractionalPages !== 0) {
+        return false;
+    } else {
+        return true;
+    }
+
+}
+
 addBookBtn.addEventListener("click", (e)=>{
     e.preventDefault();
     let newTitle = titleInput.value;
@@ -105,7 +120,11 @@ addBookBtn.addEventListener("click", (e)=>{
     let read = readInput.checked ? true : false;
     let color = "red";
 
-    addBookToLibrary(newTitle, newAuthor, newPages, read, color);
+    if (checkCorrectInputs(newTitle, newAuthor, newPages)) {
+        addBookToLibrary(newTitle, newAuthor, newPages, read, color);
+    } else {
+        alert("Please enter correct information");
+    }
 })
 
 bookshelf.addEventListener("click", (e) => {
