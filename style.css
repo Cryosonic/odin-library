@@ -73,6 +73,8 @@ main {
             padding: 30px;
             font-size: 1.5rem;
             display: grid;
+            grid-template-columns: 1fr 3fr;
+            grid-template-rows: 2fr repeat(4, 1fr);
             gap: 10px;
             align-content: space-between;
 
@@ -87,8 +89,7 @@ main {
                 height: 330px;
                 top: 10px;
                 left:10px;
-                /* background-color: var(--book-cover); */
-                background-color: blue;
+                background-color: var(--book-cover);
             }
 
             &::after {
@@ -102,7 +103,6 @@ main {
             }
 
             P {
-                color: red;
                 overflow: hidden;
             }
 
@@ -110,9 +110,13 @@ main {
                 font-weight: 600;
             }
 
-            .read {
+
+            .read,
+            .remove-book {
+                grid-column: span 2;
                 text-align: center;
                 border-radius: 20px;
+                cursor: pointer;
             }
 
             .true {
@@ -132,10 +136,7 @@ main {
                 font-size: inherit;
                 background-color: rgb(200, 50, 50);
                 border: 3px solid rgb(150, 0, 0);
-                border-radius: 20px;
             }
         }
-
-
     }
 }

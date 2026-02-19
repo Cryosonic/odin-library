@@ -33,81 +33,67 @@ function Book(id, title, author, pages, read) {
     this.read = read;
 };
 
-const addBookToLibrary = function(title, author, pages, read) {
+const addBookToLibrary = function(title, author, pages, read, color) {
     const newBookID = crypto.randomUUID()
-    let nextBook = new Book(newBookID, title, author, pages, read);
-    library.push(nextBook);
+    let newBook = new Book(newBookID, title, author, pages, read);
+    library.push(newBook);
+    addBook(title, author, pages, read, color);
 }
 
-const updateBookshelf = () => {
-    library.forEach((book) => {
-        const container = document.createElement("div");
-        const title = document.createElement("p");
-        const newTitle = document.createElement("p");
-        const author = document.createElement("p");
-        const newAuthor = document.createElement("p");
-        const pages = document.createElement("p");
-        const newPages = document.createElement("p");
-        const bookRead = document.createElement("div");
-        const removeBook = document.createElement("button");
+const addBook = (bookTitle, bookAuthor, bookPages, bookRead, bookCoverColor) => {
+    const container = document.createElement("div");
+    const pTitleHeader = document.createElement("p");
+    const pTitleContent = document.createElement("p");
+    const pAuthorHeader = document.createElement("p");
+    const pAuthorContent = document.createElement("p");
+    const pPagesHeader = document.createElement("p");
+    const pPagesContent = document.createElement("p");
+    const divBookRead = document.createElement("div");
+    const removeBookBtn = document.createElement("button");
 
-        container.id = book.id;
-        container.classList.add("book");
+    container.id = crypto.randomUUID();
+    container.classList.add("book");
+    container.style.setProperty("--book-cover", bookCoverColor);
 
-        title.classList.add("book-data");
-        title.textContent = "Title:";
-        container.appendChild(title);
-        newTitle.textContent = `${book.title}`;
-        container.appendChild(newTitle);
+    pTitleHeader.classList.add("book-header");
+    pTitleHeader.textContent = "Title:";
+    container.appendChild(pTitleHeader);
+    pTitleContent.textContent = `${bookTitle}`;
+    container.appendChild(pTitleContent);
 
-        author.classList.add("book-data");
-        author.textContent = "Author:";
-        container.appendChild(author);
-        newAuthor.textContent = `${book.author}`;
-        container.appendChild(newAuthor);
+    pAuthorHeader.classList.add("book-header");
+    pAuthorHeader.textContent = "Author:";
+    container.appendChild(pAuthorHeader);
+    pAuthorContent.textContent = `${bookAuthor}`;
+    container.appendChild(pAuthorContent);
 
-        pages.classList.add("book-data");
-        pages.textContent = "Pages:";
-        container.appendChild(pages);
-        newPages.textContent = `${book.pages}`;
-        container.appendChild(newPages);
+    pPagesHeader.classList.add("book-header");
+    pPagesHeader.textContent = "Pages:";
+    container.appendChild(pPagesHeader);
+    pPagesContent.textContent = `${bookPages}`;
+    container.appendChild(pPagesContent);
 
-        bookRead.classList.add("read");
-        bookRead.classList.add(book.read);
-        bookRead.textContent = book.read ? "Read" : "Not read";
-        container.appendChild(bookRead);
+    divBookRead.classList.add("read");
+    divBookRead.classList.add(bookRead);
+    divBookRead.textContent = bookRead ? "Read" : "Not read";
+    container.appendChild(divBookRead);
 
-        removeBook.classList.add("remove-book");
-        removeBook.textContent = `Remove`;
+    removeBookBtn.classList.add("remove-book");
+    removeBookBtn.textContent = `Remove`;
+    container.appendChild(removeBookBtn);
 
-        container.appendChild(bookRead);
-        container.appendChild(removeBook);
-
-        bookshelf.appendChild(container);
-    })
+    bookshelf.appendChild(container);
 }
 
-updateBookshelf();
-
-addBookBtn.addEventListener("click", ()=>{
-    // TODO: split function and add event filter to none-default.
-
+addBookBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
     let newTitle = titleInput.value;
     let newAuthor = authorInput.value;
     let newPages = pagesInput.value;
     let read = readInput.checked ? true : false;
+    let color = "red";
 
-    titleInput.value = "";
-    authorInput.value = "";
-    pagesInput.value = ""
-    readInput.checked = false;
-
-    if (newTitle !== "" && newAuthor !== "" && newPages !== "") {
-        addBookToLibrary(newTitle, newAuthor, newPages, read);
-        // TODO: append new book rather than reset.
-        bookshelf.innerHTML = "";
-        updateBookshelf();
-    }
+    addBookToLibrary(newTitle, newAuthor, newPages, read, color);
 })
 
 bookshelf.addEventListener("click", (e) => {
