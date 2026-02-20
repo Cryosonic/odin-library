@@ -3,7 +3,7 @@ const titleInput = document.getElementById("title");
 const authorInput = document.getElementById("author");
 const pagesInput = document.getElementById("pages");
 const readInput = document.getElementById("read");
-// const colorSelector = 
+const colorSelector = document.querySelectorAll("[type=radio]")
 const addBookBtn = document.getElementById("add-book-button");
 
 const library = [
@@ -149,10 +149,16 @@ addBookBtn.addEventListener("click", (e)=>{
     let newAuthor = authorInput.value;
     let newPages = pagesInput.value;
     let read = readInput.checked ? true : false;
-    let color = "red";
+    let colorSelected = "white";
+
+    colorSelector.forEach(color => {
+        if(color.checked === true) {
+            colorSelected = color.id;
+        };
+    })
 
     if (checkCorrectInputs(newTitle, newAuthor, newPages)) {
-        addBookToLibrary(newTitle, newAuthor, newPages, read, color);
+        addBookToLibrary(newTitle, newAuthor, newPages, read, colorSelected);
     }
 })
 

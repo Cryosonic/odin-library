@@ -1,6 +1,4 @@
 :root {
-    --clr-input-grey: rgb(220, 220, 220);
-    --clr-input-bg-grey: rgb(180, 180, 180);
     --clr-book-read-border: rgb(0, 100, 0);
     --clr-book-read-bg: rgb(50, 150, 50);
     --clr-book-notread-border: rgb(200, 120, 0);
@@ -14,6 +12,10 @@
     padding: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 main {
     margin: auto;
     max-width: 1220px;
@@ -22,52 +24,99 @@ main {
     flex-direction: column;
     align-items: stretch;
     
-    h1 {
+    & h1 {
         text-align: center;
         text-decoration: underline;
         margin: 2rem;
     }
 
-    form {
+    & form {
         padding: 20px;
         column-gap: 20px;
         row-gap: 1rem;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: 3fr;
 
-        label {
+        & label {
             font-size: 1.5rem;
         }
 
-        input {
+        & input {
             grid-row: 2;
             font-size: 1.5rem;
             font-family: inherit;
-            color: var(--clr-input-grey);
             outline: none;
             padding: 0 0.8rem;
             border-radius: 1.5rem;
-            background-color: var(--clr-input-bg-grey);
         }
 
-        #add-book-button {
+        & .color-palette {
+            grid-column: span 4;
+            justify-self: center;
+            display: grid;
+            grid-template-columns: repeat(8, 40px);
+            grid-template-rows: 1.7rem 40px;
+            gap: 20px;
+
+            & p {
+                font-size: 1.5rem;
+                grid-column: span 8;
+                align-self: center;
+            }
+
+            & .color-label {
+                --book-cover-clr-selected: rgba(150, 150, 150, 0.4);
+                border: 4px solid var(--book-cover-clr-selected);
+            }
+
+            & input[type=radio]:checked + .color-label {
+                --book-cover-clr-selected: rgb(10, 10, 10);
+                border-style: dashed;
+            }
+
+            & .white {
+                background-color: white;
+            }
+            & .red {
+                background-color: red;
+            }
+            & .orange {
+                background-color: orange;
+            }
+            & .yellow {
+                background-color: yellow;
+            }
+            & .green {
+                background-color: green;
+            }
+            & .blue {
+                background-color: blue;
+            }
+            & .indigo {
+                background-color: indigo;
+            }
+            & .violet {
+                background-color: violet;
+            }    
+        }
+
+        & #add-book-button {
             margin-top: 50px;
             grid-column: 2 / 4;
-            grid-row: 3;
+            grid-row: 4;
             font-size: 1.5rem;
             padding: 0.2rem auto;
         }
     }
 
-    .bookshelf {
+    & .bookshelf {
         padding: 20px;
         display: grid;
         grid-template-columns: repeat(auto-fill, 280px);
         grid-auto-rows: 350px;
         gap: 20px;
 
-        .book {
+        & .book {
             --book-cover: white;
             position: relative;
             padding: 30px;
@@ -78,7 +127,7 @@ main {
             gap: 10px;
             align-content: space-between;
 
-            * {
+            & * {
                 z-index: 1;
             }
 
@@ -102,35 +151,35 @@ main {
                 background-image: url("./images/book-frame-t.png");
             }
 
-            P {
+            & P {
                 overflow: hidden;
             }
 
-            .book-header {
+            & .book-header {
                 font-weight: 600;
             }
 
 
-            .read,
-            .remove-book {
+            & .read,
+            & .remove-book {
                 grid-column: span 2;
                 text-align: center;
                 border-radius: 20px;
                 cursor: pointer;
             }
 
-            .true {
+            & .true {
                 border: 3px solid var(--clr-book-read-border);
                 background-color: var(--clr-book-read-bg);
                 color: white;
             }
 
-            .false {
+            & .false {
                 border: 3px solid var(--clr-book-notread-border);
                 background-color: var(--clr-book-notread-bg);
             }
 
-            .remove-book {
+            & .remove-book {
                 color: white;
                 font-family: inherit;
                 font-size: inherit;
