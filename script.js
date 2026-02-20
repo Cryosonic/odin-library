@@ -67,7 +67,7 @@ const addBook = (bookID, bookTitle, bookAuthor, bookPages, bookRead, bookCoverCo
     const pAuthorContent = document.createElement("p");
     const pPagesHeader = document.createElement("p");
     const pPagesContent = document.createElement("p");
-    const divBookRead = document.createElement("div");
+    const btnBookRead = document.createElement("button");
     const removeBookBtn = document.createElement("button");
 
     container.id = bookID;
@@ -91,11 +91,14 @@ const addBook = (bookID, bookTitle, bookAuthor, bookPages, bookRead, bookCoverCo
     pPagesContent.textContent = `${bookPages}`;
     container.appendChild(pPagesContent);
 
-    divBookRead.classList.add("read");
-    divBookRead.classList.add(bookRead);
-    divBookRead.textContent = bookRead ? "Read" : "Not read";
-    container.appendChild(divBookRead);
+    btnBookRead.classList.add("read");
+    btnBookRead.classList.add(bookRead);
+    btnBookRead.textContent = bookRead ? "Read" : "Not read";
+    container.appendChild(btnBookRead);
 
+    if (bookCoverColor === "indigo" || bookCoverColor === "blue") {
+        container.style.color = "white";
+    }
     container.style.setProperty("--book-cover", bookCoverColor);
     
     removeBookBtn.classList.add("remove-book");

@@ -5,6 +5,11 @@
     --clr-book-notread-bg: orange;
 }
 
+@font-face {
+    font-family: handwritten;
+    src: url(./fonts/KaushanScript-Regular.woff2);
+}
+
 *,
 *::before,
 *::after {
@@ -16,18 +21,37 @@
     display: none;
 }
 
+body {
+    background-image: linear-gradient(90deg, rgb(150, 50, 50), rgb(100, 0, 0), rgb(150, 50, 50));
+}
+
 main {
     margin: auto;
+    padding: 0 50px;
     max-width: 1220px;
     width: 100%;
+    min-height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     
     & h1 {
+        font-family: handwritten, 'Times New Roman', Times, serif;
+        color: white;
         text-align: center;
         text-decoration: underline;
         margin: 2rem;
+
+        & + p {
+            text-align: center;
+            font-family: inherit;
+            color: white;
+
+            & a {
+                color: rgb(150, 150, 150);
+            }
+        }
     }
 
     & form {
@@ -35,13 +59,15 @@ main {
         column-gap: 20px;
         row-gap: 1rem;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
 
         & label {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            color: white;
         }
 
-        & input {
+        & input[type=text],
+        & input[type=tel] {
             grid-row: 2;
             font-size: 1.5rem;
             font-family: inherit;
@@ -50,8 +76,21 @@ main {
             border-radius: 1.5rem;
         }
 
+        .checkbox {
+            grid-column: span 3;
+            justify-self: center;
+            grid-row: 3;
+
+            & #read {
+                width: 1.2rem;
+                height: 1.2rem;
+                align-self: end;
+            }
+        }
+
         & .color-palette {
-            grid-column: span 4;
+            grid-column: span 3;
+            grid-row: 4;
             justify-self: center;
             display: grid;
             grid-template-columns: repeat(8, 40px);
@@ -59,6 +98,7 @@ main {
             gap: 20px;
 
             & p {
+                color: white;
                 font-size: 1.5rem;
                 grid-column: span 8;
                 align-self: center;
@@ -102,10 +142,13 @@ main {
 
         & #add-book-button {
             margin-top: 50px;
-            grid-column: 2 / 4;
-            grid-row: 4;
+            border-radius: 10px;
+            padding: 0.4rem 2rem;
+            grid-column: 1 / 4;
+            grid-row: 5;
+            font-family: inherit;
             font-size: 1.5rem;
-            padding: 0.2rem auto;
+            justify-self: center;
         }
     }
 
@@ -122,10 +165,10 @@ main {
             padding: 30px;
             font-size: 20px;
             display: grid;
-            grid-template-columns: 1fr 3fr;
-            grid-template-rows: 2fr repeat(4, 1fr);
-            gap: 10px;
+            grid-template-rows: 1fr 2fr repeat(6, 1fr);
+            gap: 5px;
             align-content: space-between;
+            align-items: start;
 
             & * {
                 z-index: 1;
@@ -137,7 +180,7 @@ main {
                 width: 260px;
                 height: 330px;
                 top: 10px;
-                left:10px;
+                left: 10px;
                 background-color: var(--book-cover);
             }
 
@@ -153,16 +196,23 @@ main {
 
             & P {
                 overflow: hidden;
+
+                &:not(.book-header) {
+                    font-family: handwritten, 'Times New Roman', Times, serif;
+                }
+
             }
 
             & .book-header {
                 font-weight: 600;
+                font-family: 'Courier New', Courier, monospace;
             }
 
 
             & .read,
             & .remove-book {
-                grid-column: span 2;
+                font-family: inherit;
+                font-size: inherit;
                 text-align: center;
                 border-radius: 20px;
                 cursor: pointer;
@@ -181,8 +231,6 @@ main {
 
             & .remove-book {
                 color: white;
-                font-family: inherit;
-                font-size: inherit;
                 background-color: rgb(200, 50, 50);
                 border: 3px solid rgb(150, 0, 0);
             }
