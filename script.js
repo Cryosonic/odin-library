@@ -69,7 +69,19 @@ class Book {
     }
 }
 
+class ReadableBook extends Book{
+    constructor (id, title, author, pages, read, coverColor) {
+        super (id, title, author, pages, read, coverColor) 
+    }
 
+    toggleRead () {
+        if(this.read) {
+            this.read = false;
+        } else if (!this.read) {
+            this.read = true;
+        }
+    }
+}
 
 
 const addBook = (bookID, bookTitle, bookAuthor, bookPages, bookRead, bookCoverColor) => {
@@ -131,7 +143,7 @@ initiatePage();
 
 const addBookToLibrary = function(title, author, pages, read, color) {
     const newBookID = crypto.randomUUID()
-    let newBook = new Book(newBookID, title, author, pages, read);
+    let newBook = new ReadableBook(newBookID, title, author, pages, read);
     library.push(newBook);
     addBook(newBookID, title, author, pages, read, color);
 }
