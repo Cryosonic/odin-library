@@ -38,26 +38,39 @@ const library = [
     }
 ];
 
-function Book(id, title, author, pages, read, coverColor) {
-    if (!new.target) {
-        throw Error("new word must be used");
-    }
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.cover = coverColor
-};
+// function Book(id, title, author, pages, read, coverColor) {
+//     if (!new.target) {
+//         throw Error("new word must be used");
+//     }
+//     this.id = id;
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = read;
+//     this.cover = coverColor
+// };
 
-Book.prototype.toggleRead = function() {
-    console.log(`Read switched from ${this.read} to ${!this.read}`);
-    if (this.read) {
-        this.read = false;
-    } else if (!this.read) {
-        this.read = true;
+// Book.prototype.toggleRead = function() {
+//     if (this.read) {
+//         this.read = false;
+//     } else if (!this.read) {
+//         this.read = true;
+//     }
+// }
+
+class Book {
+    constructor (id, title, author, pages, read, coverColor) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.coverColor = coverColor;
     }
 }
+
+
+
 
 const addBook = (bookID, bookTitle, bookAuthor, bookPages, bookRead, bookCoverColor) => {
     const container = document.createElement("div");
